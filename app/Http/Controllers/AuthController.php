@@ -31,12 +31,18 @@ class AuthController extends Controller
             ];
             User::create($data);
             toast()->success('Registration successfully');
-            return redirect()->route('login');
+            return response()->json(['success' => 'Registration successfully']);
 
         }catch (Exception $e) {
             toast()->error($e->getMessage());
             return $e->getMessage();
         }
+    }
+
+
+    public function login()
+    {
+        return view('backend.pages.auth.sign-in');
     }
 
     public function loginPost(Request $request)
@@ -49,7 +55,7 @@ class AuthController extends Controller
 
             if(auth()->attempt(['mobile' => $request->input('mobile'), 'password' => $request->input('password')])) {
                 toast()->success('Login successfully');
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Login successfully');
             }
 
             toast()->error('Login failed');
@@ -59,5 +65,10 @@ class AuthController extends Controller
             toast()->error($e->getMessage());
             return $e->getMessage();
         }
+    }
+
+    public function dashboard()
+    {
+        return view('backend.components.dashboard');
     }
 }

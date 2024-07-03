@@ -18,15 +18,9 @@
                 <form action="#">
                     <div class="icon-field mb-16">
                     <span class="icon top-50 translate-middle-y">
-                        <iconify-icon icon="f7:person"></iconify-icon>
-                    </span>
-                        <input type="text" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Username">
-                    </div>
-                    <div class="icon-field mb-16">
-                    <span class="icon top-50 translate-middle-y">
                         <iconify-icon icon="mage:email"></iconify-icon>
                     </span>
-                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Email">
+                        <input type="number" id="mobile" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Mobile">
                     </div>
                     <div class="mb-20">
                         <div class="position-relative ">
@@ -54,7 +48,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"> Sign Up</button>
+                    <button type="submit" onclick="submitForm()" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32">Log In</button>
 
                     <div class="mt-32 center-border-horizontal text-center">
                         <span class="bg-base z-1 px-4">Or sign up with</span>
@@ -77,4 +71,37 @@
             </div>
         </div>
     </section>
+
+    <script>
+        async function submitForm() {
+            try {
+                let mobile = document.getElementById('mobile');
+                let password = document.getElementById('your-password');
+
+                if (!mobile || !password) {
+                    throw new Error("Form fields not found.");
+                }
+
+                let postData = {
+                    'mobile': mobile.value,
+                    'password': password.value
+                };
+
+                let response = await axios.post("{{ route('login.post') }}", postData);
+                console.log(response);
+                if (response.status === 200 && response.data.token) {
+                    setToken(response.data.token );
+                    toastify().success(response.data.message);
+                    window.location.href = "{{ route('dashboard') }}";
+                } else {
+                    toastify().error(response.data.message);
+                    window.location.href = "{{ route('login') }}";
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                // Handle error (e.g., show error message to user)
+            }
+        }
+
+    </script>
 @endsection

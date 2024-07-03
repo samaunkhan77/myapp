@@ -33,6 +33,7 @@
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('assets/css')}}/style.css">
     <script src="{{asset('custom/js/axios.min.js')}}"></script>
+    @toastifyCss
 </head>
 <body>
 @include('sweetalert::alert')
@@ -63,6 +64,7 @@
 
 <script src="{{asset('assets/js')}}/homeOneChart.js"></script>
 <script src="{{asset('custom/js/custom.js')}}"></script>
+@toastifyJs
 
 </body>
 

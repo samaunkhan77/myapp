@@ -32,7 +32,9 @@
     <link rel="stylesheet" href="{{asset('assets/css')}}/lib/slick.css">
     <!-- main css -->
     <link rel="stylesheet" href="{{asset('assets/css')}}/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <script src="{{asset('custom/js/axios.min.js')}}"></script>
+    @toastifyCss
 </head>
 <body>
 @include('sweetalert::alert')
@@ -68,6 +70,7 @@
 
 <script src="{{asset('assets/js')}}/homeOneChart.js"></script>
 <script src="{{asset('custom/js/custom.js')}}"></script>
+@toastifyJs
 
 </body>
 

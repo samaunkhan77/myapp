@@ -332,8 +332,10 @@
                                     <iconify-icon icon="icon-park-outline:setting-two" class="icon text-xl"></iconify-icon>  Setting</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" href="javascript:void(0)">
-                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>  Log Out</a>
+
+                                <button type="button" onclick="logout()" class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3">
+                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>  Log Out
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -342,3 +344,26 @@
         </div>
     </div>
 </div>
+
+<!-- Add this script in your Blade view or in a separate JS file -->
+<script>
+    async function logout() {
+        try {
+            const token =getToken();
+            const response = await axios.post('/logout') ;
+
+            if (response.data.status === 'success') {
+                console.log('Logout successful');
+                window.location.href = '/login';
+            } else {
+                console.error('Logout failed:', response.data.message);
+                alert('Logout failed: ' + response.data.message);
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+            alert('Logout failed: ' + error.message);
+        }
+    }
+</script>
+
+

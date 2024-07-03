@@ -26,7 +26,7 @@
                     <span class="icon top-50 translate-middle-y">
                         <iconify-icon icon="f7:person"></iconify-icon>
                     </span>
-                        <input type="text" id="mobile" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Enter Mobile">
+                        <input type="number" id="mobile" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Enter Mobile">
                     </div>
                     <div class="icon-field mb-16">
                     <span class="icon top-50 translate-middle-y">
@@ -40,9 +40,10 @@
                             <span class="icon top-50 translate-middle-y">
                                 <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
                             </span>
-                                <input type="password"  class="form-control h-56-px bg-neutral-50 radius-12" id="your-password" placeholder="Password">
+                                <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" id="your-password" placeholder="Password">
                             </div>
-                            <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password"></span>
+                            <span
+                                class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password"></span>
                         </div>
                         <span class="mt-12 text-sm text-secondary-light">Your password must have at least 8 characters</span>
                     </div>
@@ -66,11 +67,13 @@
                         <span class="bg-base z-1 px-4">Or sign up with</span>
                     </div>
                     <div class="mt-32 d-flex align-items-center gap-3">
-                        <button type="button" class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
+                        <button type="button"
+                                class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
                             <iconify-icon icon="ic:baseline-facebook" class="text-primary-600 text-xl line-height-1"></iconify-icon>
                             Google
                         </button>
-                        <button type="button" class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
+                        <button type="button"
+                                class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
                             <iconify-icon icon="logos:google-icon" class="text-primary-600 text-xl line-height-1"></iconify-icon>
                             Google
                         </button>
@@ -92,13 +95,14 @@
                 email: document.getElementById('email').value,
                 password: document.getElementById('your-password').value
             }
-        let response = await axios.post("/user_registration",postData)
+            let response = await axios.post("{{ route('registration.post') }}", postData)
 
-        if(response.status === 200) {
-            window.location = "/login"
-        }else {
-            toast().error(response.message)
-        }
+            if (response.status === 200) {
+                toastify().success('Your account created successfully');
+                window.location = "{{ route('login') }}";
+            } else {
+                toastify().error(response.data.message);
+            }
         }
 
     </script>
